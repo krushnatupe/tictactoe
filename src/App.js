@@ -65,7 +65,7 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Tic-Tac-Toe</h1>
+      <h1>Tic Tac Toe</h1>
       <div className="status">
         {winner ? `Winner: ${winner}` : `Next player: ${xIsNext ? 'X' : 'O'}`}
       </div>
