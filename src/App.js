@@ -6,6 +6,7 @@ function App() {
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState(null);
   const [winningLine, setWinningLine] = useState(null);
+  const [isDraw, setIsDraw] = useState(false);
 
   const calculateWinner = (squares) => {
     const lines = [
@@ -28,7 +29,7 @@ function App() {
   };
 
   const handleClick = (index) => {
-    if (board[index] || winner) return;
+    if (board[index] || winner || isDraw) return;
 
     const newBoard = [...board];
     newBoard[index] = xIsNext ? 'X' : 'O';
@@ -39,6 +40,8 @@ function App() {
     if (gameResult) {
       setWinner(gameResult.winner);
       setWinningLine(gameResult.line);
+    } else if (!newBoard.includes(null)) {
+      setIsDraw(true);
     }
   };
 
@@ -47,6 +50,7 @@ function App() {
     setXIsNext(true);
     setWinner(null);
     setWinningLine(null);
+    setIsDraw(false);
   };
 
   const renderSquare = (index) => {
@@ -66,8 +70,8 @@ function App() {
   return (
     <div className="app">
       <h1>Tic Tac Toe</h1>
-      <div className="status">
-        {winner ? `Winner: ${winner}` : `Next player: ${xIsNext ? 'X' : 'O'}`}
+      <div className={`status ${isDraw ? 'draw' : ''} ${winner ? 'winner' : ''}`}>
+        {winner ? `Winner: ${winner}` : isDraw ? "It's a Draw!" : `Next player: ${xIsNext ? 'X' : 'O'}`}
       </div>
       <div className="board">
         <div className="board-row">
